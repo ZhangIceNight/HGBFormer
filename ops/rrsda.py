@@ -1,13 +1,4 @@
-"""
-Regional Routing Scaled Dot-product Attention (based on pytorch API)
 
-author: ZHU Lei
-github: https://github.com/rayleizhu
-email: ray.leizhu@outlook.com
-
-This source code is licensed under the license found in the
-LICENSE file in the root directory of this source tree.
-"""
 import torch
 from torch import Tensor, LongTensor
 import torch.nn.functional as F
