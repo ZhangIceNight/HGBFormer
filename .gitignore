@@ -1,0 +1,7 @@
+data
+local*
+outputs*
+__pycache__
+.pyc
+
+object_detection/
