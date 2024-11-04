@@ -2,6 +2,8 @@
 
 Official PyTorch implementation of **Hypergraph BiFormer**
 
+![Overall](figures/overall-architecture.png)
+![Hypergraph](figures/illustration-HGM.png)
 
 ## Installation
 Please install conda env and requirments for installation. 
