@@ -1,10 +1,19 @@
-# [Hypergraph BiFormer for Semantic Segmentation of High-Resolution Remote Sensing Images](https://ieeexplore.ieee.org/abstract/document/10906377)
+<br>
+<p align="center">
+<h1 align="center"><strong>Hypergraph BiFormer for Semantic Segmentation of High-Resolution Remote Sensing Images (TGRS 2025)</strong></h1>
+  <p align="center">
+    <a href='https://orcid.org/0000-0001-7933-6946' target='_blank'>Weipeng Jing<sup>1</sup></a>&emsp;
+    <a href='https://orcid.org/0000-0002-3162-0259' target='_blank'>Wenjun Zhang<sup>1</sup></a>&emsp;
+    <a href='https://ieeexplore.ieee.org/author/37087112310' target='_blank'>Donglin Di<sup>2</sup></a>&emsp;
+    <a href='https://orcid.org/0000-0003-1932-7698' target='_blank'>Chao Li<sup>1*</sup></a>&emsp;
+    <a href='https://orcid.org/0000-0002-1290-4272' target='_blank'>Mahmoud Emam<sup>3</sup></a>&emsp;
+    <a href='https://orcid.org/0000-0002-5206-3842' target='_blank'>Ajmal Mian<sup>4</sup></a>&emsp;
+    <br>
+    <sup>1</sup>Northeast Forestry University&emsp;<sup>2</sup>Li. Auto&emsp;<sup>3</sup>Menoufia University&emsp;<sup>4</sup>West Australia University
+  </p>
+</p>
 
-
-Official PyTorch implementation of **HGBFormer**, from the following paper:
-
-[Hypergraph BiFormer for Semantic Segmentation of High-Resolution Remote Sensing Images](https://ieeexplore.ieee.org/abstract/document/10906377). TGRS 2025.\
-[Weipeng Jing](https://orcid.org/0000-0001-7933-6946), [Wenjun Zhang](https://orcid.org/0000-0002-3162-0259), [Donglin Di](https://ieeexplore.ieee.org/author/37087112310), [Chao Li](https://orcid.org/0000-0003-1932-7698), [Mahmoud Emam](https://orcid.org/0000-0002-1290-4272), and [Ajmal Mian](https://orcid.org/0000-0002-5206-3842)
+[Paper Link](https://ieeexplore.ieee.org/abstract/document/10906377)
 
 --- 
 <p align="center">
@@ -12,9 +21,7 @@ Official PyTorch implementation of **HGBFormer**, from the following paper:
 class="center">
 </p>
 
-<!-- ✅ ⬜️  -->
-
---------------------------------------------------------------------------------
+---
 ## Abstract
 While transformers are powerful neural network architectures for feature learning, current Transformer-based approaches for semantic segmentation of high-resolution remote sensing images (HRRSIs) struggle with the extraction of local semantic features. To address this issue, we incorporate a hypergraph into the Transformer. Hypergraph-based methods are proficient at discovering high-order correlations within limited-scale data, extracting pertinent representations to enhance the Transformer’s learning capabilities. We also propose dual pooling and feature aggregation modules (FAMs), inspired by the adaptive pooling’s potent local modeling capabilities, to additionally extract fine-grained features from HRRSIs. In particular, we conceive a hypergraph BiFormer (HGBT) based on these three proposed modules along with a BiFormer backbone. HGBT has the potential to learn general latent features as well as generate high-order representations of HRRSIs by modeling correlations of multiscale features and local topology within an entirely nonlinear space, leading to the aggregation of features in a compact and localized manner, enhancing the model’s ability to capture detailed variations within small areas. We validate our approach through extensive experiments on ISPRS Vaihingen and Potsdam datasets, where HGBT attains mean intersection over union (mIoU) of 83.71% and 87.88%, respectively. Both quantitative and qualitative assessments underscore the dominance of HGBT.
 
