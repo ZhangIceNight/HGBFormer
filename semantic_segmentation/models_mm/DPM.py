@@ -2,10 +2,9 @@ import torch
 import torch.nn as nn
 from SoftPool import soft_pool2d, SoftPool2d
 from adaPool import adapool2d, AdaPool2d
-# from deform_conv import DeformConv2d
 
 
-class SIM(nn.Module):
+class DPM(nn.Module):
   def __init__(self, dim):
     super().__init__()
     self.dim = dim
@@ -32,7 +31,7 @@ class SIM(nn.Module):
 if __name__ == "__main__":
   b, h, w, c = 4, 224, 224, 48
   x = torch.randn([b,c,h,w]).cuda()
-  patchMerging = SIM(dim=c).cuda()
-  y = patchMerging(x)
+  dpm = DPM(dim=c).cuda()
+  y = dpm(x)
   
   print(y.shape)

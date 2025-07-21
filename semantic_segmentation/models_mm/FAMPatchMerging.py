@@ -2,15 +2,13 @@ import torch
 import torch.nn as nn
 from SoftPool import soft_pool2d, SoftPool2d
 from adaPool import adapool2d, AdaPool2d
-# from deform_conv import DeformConv2d
 
 
-class PatchMerging(nn.Module):
+class FAMPatchMerging(nn.Module):
   def __init__(self, dim):
     super().__init__()
     self.dim = dim
 
-    # self.dcn = DeformConv2d(dim, 2 * dim, 3, padding=1, stride=2, modulation=True)
     self.dconv = nn.Conv2d(2 * dim, 2 * dim, kernel_size=3, dilation=2, padding=2)
 
     self.conv1 = nn.Conv2d(dim, 2 * dim, kernel_size=1, stride=1)
@@ -39,7 +37,7 @@ class PatchMerging(nn.Module):
 if __name__ == "__main__":
   b, h, w, c = 4, 224, 224, 48
   x = torch.randn([b,c,h,w]).cuda()
-  patchMerging = PatchMerging(dim=c).cuda()
+  patchMerging = FAMPatchMerging(dim=c).cuda()
   y = patchMerging(x)
   
   print(y.shape)
