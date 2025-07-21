@@ -23,7 +23,9 @@ class="center">
 
 ---
 ## Abstract
+<p align="justify">
 While transformers are powerful neural network architectures for feature learning, current Transformer-based approaches for semantic segmentation of high-resolution remote sensing images (HRRSIs) struggle with the extraction of local semantic features. To address this issue, we incorporate a hypergraph into the Transformer. Hypergraph-based methods are proficient at discovering high-order correlations within limited-scale data, extracting pertinent representations to enhance the Transformer’s learning capabilities. We also propose dual pooling and feature aggregation modules (FAMs), inspired by the adaptive pooling’s potent local modeling capabilities, to additionally extract fine-grained features from HRRSIs. In particular, we conceive a hypergraph BiFormer (HGBT) based on these three proposed modules along with a BiFormer backbone. HGBT has the potential to learn general latent features as well as generate high-order representations of HRRSIs by modeling correlations of multiscale features and local topology within an entirely nonlinear space, leading to the aggregation of features in a compact and localized manner, enhancing the model’s ability to capture detailed variations within small areas. We validate our approach through extensive experiments on ISPRS Vaihingen and Potsdam datasets, where HGBT attains mean intersection over union (mIoU) of 83.71% and 87.88%, respectively. Both quantitative and qualitative assessments underscore the dominance of HGBT.
+</p>
 
 --------------------------------------------------------------------------------
 ## Overview
