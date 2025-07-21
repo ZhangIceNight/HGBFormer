@@ -1,4 +1,4 @@
-name: dhg
+name: hgbformer
 channels:
   - pytorch
   - defaults

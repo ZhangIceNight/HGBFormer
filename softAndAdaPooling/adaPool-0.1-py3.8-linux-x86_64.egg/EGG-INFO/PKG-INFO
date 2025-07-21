@@ -1,8 +1,0 @@
-Metadata-Version: 2.1
-Name: adaPool
-Version: 0.1
-Summary: CUDA-accelerated package for performing 1D/2D/3D adaPool and adaUpsample with PyTorch
-Author: Alexandros Stergiou
-Author-email: alexstergiou5@gmail.com
-License: MIT
-Requires-Python: >=3

@@ -1,120 +1,107 @@
-# [BiFormer: Vision Transformer with Bi-Level Routing Attention](https://arxiv.org/abs/2303.08810)
+# [Hypergraph BiFormer for Semantic Segmentation of High-Resolution Remote Sensing Images](https://ieeexplore.ieee.org/abstract/document/10906377)
 
-Official PyTorch implementation of **BiFormer**, from the following paper:
 
-[BiFormer: Vision Transformer with Bi-Level Routing Attention](https://arxiv.org/abs/2303.08810). CVPR 2023.\
-[Lei Zhu](https://github.com/rayleizhu), [Xinjiang Wang](https://www.linkedin.com/in/wang-xinjiang-784a3462), [Zhanghan Ke](https://zhke.io/), [Wayne Zhang](http://www.statfe.com/), and [Rynson Lau](https://www.cs.cityu.edu.hk/~rynson/)
+Official PyTorch implementation of **HGBFormer**, from the following paper:
+
+[Hypergraph BiFormer for Semantic Segmentation of High-Resolution Remote Sensing Images](https://ieeexplore.ieee.org/abstract/document/10906377). TGRS 2025.\
+[Weipeng Jing](https://orcid.org/0000-0001-7933-6946), [Wenjun Zhang](https://orcid.org/0000-0002-3162-0259), [Donglin Di](https://ieeexplore.ieee.org/author/37087112310), [Chao Li](https://orcid.org/0000-0003-1932-7698), [Mahmoud Emam](https://orcid.org/0000-0002-1290-4272), and [Ajmal Mian](https://orcid.org/0000-0002-5206-3842)
 
 --- 
-<p align="left">
+<p align="center">
 <img src="assets/teaser.png" width=60% height=60% 
 class="center">
 </p>
 
 <!-- ✅ ⬜️  -->
 
-## News
+--------------------------------------------------------------------------------
+## Abstract
+While transformers are powerful neural network architectures for feature learning, current Transformer-based approaches for semantic segmentation of high-resolution remote sensing images (HRRSIs) struggle with the extraction of local semantic features. To address this issue, we incorporate a hypergraph into the Transformer. Hypergraph-based methods are proficient at discovering high-order correlations within limited-scale data, extracting pertinent representations to enhance the Transformer’s learning capabilities. We also propose dual pooling and feature aggregation modules (FAMs), inspired by the adaptive pooling’s potent local modeling capabilities, to additionally extract fine-grained features from HRRSIs. In particular, we conceive a hypergraph BiFormer (HGBT) based on these three proposed modules along with a BiFormer backbone. HGBT has the potential to learn general latent features as well as generate high-order representations of HRRSIs by modeling correlations of multiscale features and local topology within an entirely nonlinear space, leading to the aggregation of features in a compact and localized manner, enhancing the model’s ability to capture detailed variations within small areas. We validate our approach through extensive experiments on ISPRS Vaihingen and Potsdam datasets, where HGBT attains mean intersection over union (mIoU) of 83.71% and 87.88%, respectively. Both quantitative and qualitative assessments underscore the dominance of HGBT.
 
-* 2023-03-24: For better readability, BRA and BiFormer-STL has been refactored. See [ops/bra_nchw.py](ops/bra_nchw.py) and [models/biformer_stl_nchw.py](models/biformer_stl_nchw.py). We still keep the [legacy (and a little bit messy) implementation](ops/bra_legacy.py) for compatiability of previously released checkpoints.
+--------------------------------------------------------------------------------
+## Overview
+![Overall](assets/overall-architecture.png)
+![Hypergraph](assets/illustration-HGM.png)
 
-* 2023-03-24: For better memory and computation efficieny, we are diving into the optimization of BRA with CUDA. Please stay tuned.
-  - Collaborations and contributions are welcome, especially if you are an expert in CUDA/[cutlass](https://github.com/NVIDIA/cutlass). There is a chance to co-author a paper.
-
-
-## Results and Pre-trained Models
-
-### ImageNet-1K trained models
-
-| name | resolution |acc@1 | #params | FLOPs | model | log | tensorboard log<sup>*</sup> |
-|:---:|:---:|:---:|:---:| :---:|:---:|:---:| :---:| 
-| BiFormer-T | 224x224 | 81.4 | 13.1 M | 2.2 G | [model](https://matix.li/e36fe9fb086c) | [log](https://matix.li/7b7ca227852d) | - |
-| BiFormer-S | 224x224 | 83.8 | 25.5 M | 4.5 G | [model](https://matix.li/5bb436318902) | [log](https://matix.li/173324785feb) |[tensorboard.dev](https://tensorboard.dev/experiment/VQAZonmIRjasGaVDPloM5Q/#scalars) |
-| BiFormer-B | 224x224 | 84.3 | 56.8 M | 9.8 G | [model](https://matix.li/995db75f585d) | [log](https://matix.li/da2bff937647) | - |
-| BiFormer-STL | 224x224 | 82.7 | 28.4 M | 4.6 G | [model](https://matix.li/4e9034a91a23) | [log](https://matix.li/96e971cfb3d5) | - |
-| BiFormer-STL-nchw | 224x224 | 82.7 | 28.4 M | 4.6 G | [model](https://matix.li/216749d857fd) | [log](https://matix.li/3373f282ee86) | [tensorboard.dev](https://tensorboard.dev/experiment/CD2QfxOYT6WQ05qnpWdK5A/#scalars&_smoothingWeight=0&tagFilter=acc) |
-
-<font size=1>* : reproduced after the acceptance of our paper.</font>
-
-Here the `BiFormer-STL`(**S**win-**T**iny-**L**ayout) model is used in our ablation study. We hope it provides a good start proint for developing your own awsome attention mechanisms.
-
-All files can be accessed from [onedrive](https://1drv.ms/u/s!AkBbczdRlZvChGsXFqAA-PVnA-R8?e=IPlOCG).
 
 ## Installation
-Please check [INSTALL.md](INSTALL.md) for installation instructions. 
-
-## Evaluation
-
-We did evaluation on a slurm cluster environment, using the command below:
+#### Environment Setup
+Please install conda env and requirments for installation. 
 
 ```bash
-python hydra_main.py \
-    data_path=./data/in1k input_size=224  batch_size=128 dist_eval=true \
-    +slurm=${CLUSTER_ID} slurm.nodes=1 slurm.ngpus=8 \
-    eval=true load_release=true model='biformer_small'
+conda env create -f environment.yaml
+conda activate hgbformer
 ```
 
-To test on a local machine, you may try
+#### Dataset Preparetion
+
+1. Download the [ISPRS](http://) Remote Sensing dataset and structure the data as follows:
 
 ```bash
-python -m torch.distributed.launch --nproc_per_node=8 main.py \
-  --data_path ./data/in1k --input_size 224 --batch_size 128 --dist_eval \
-  --eval --load_release --model biformer_small
+/path/to/potsdam/
+  ann_dir/
+    train/
+      img1.png
+    val/
+      img2.png
+  img_dir/
+    train/
+      img1.png
+    val/
+      img2.png
 ```
 
-This should give 
+2. Create the soft link to the ISPRS path
+```bash 
+mkdir data
+ln -s /path/to/potsdam data/potsdam
 ```
-* Acc@1 83.754 Acc@5 96.638 loss 0.869
-Accuracy of the network on the 50000 test images: 83.8%
+
+> Note: Vaihingen dataset should be processed the same way as the Potsdam dataset.
+
+#### Dependencies
+1. If the environment file fails to install mmcv automatically, please follow the official installation [instructions](https://github.com/open-mmlab/mmcv/tree/main) to install it manually.
+
+1. Install [dhg](https://github.com/iMoonLab/DeepHypergraph) package for HGM
+```
+pip install dhg
 ```
 
-**Note**: By setting `load_release=true`, the released checkpoints will be automatically downloaded, so you do not need to download manually in advance.
-
-## Training
-
-To launch training on a slurm cluster, use the command below:
+3. Install [Adapooling](https://github.com/alexandrosstergiou/adaPool) and [Softpooling](https://github.com/alexandrosstergiou/SoftPool) for DPM and FAM
 
 ```bash
-python hydra_main.py \
-    data_path=./data/in1k input_size=224  batch_size=128 dist_eval=true \
-    +slurm=${CLUSTER_ID} slurm.nodes=1 slurm.ngpus=8 \
-    model='biformer_small'  drop_path=0.15 lr=5e-4
+# Please follow the instructions in the original repository.
+# Set up the two pooling functions in your workspace:
+#   /your_workspace/HGBFormer/semantic_segmentation/models_mm
+
+# Note: Due to differences in implementation versions, you may encounter errors.
+# To fix this, replace the 'idea.py' file in the original repository with the provided version.
+
 ```
 
-**Note**: Our codebase automatically generates output directory for experiment logs and checkpoints, according to the passed arguments. For example, the command above will produce an output directory like
+
+## Run
+> Note: Please replace the corresponding paths in the config files and shell scripts with your own dataset paths. 
+> The ${dataset_name} can be either potsdam or vaihingen 
 
 ```
-$ tree -L 3 outputs/ 
-outputs/
-└── cls
-    └── batch_size.128-drop_path.0.15-input_size.224-lr.5e-4-model.biformer_small-slurm.ngpus.8-slurm.nodes.2
-        └── 20230307-21:33:26
+cd semantic_segmentation
+bash dis_${dataset_name}_train.sh
 ```
 
 ## Acknowledgement
-This repository is built using the [timm](https://github.com/rwightman/pytorch-image-models) library, and [ConvNext](https://github.com/facebookresearch/ConvNeXt), [UniFormer](https://github.com/Sense-X/UniFormer) repositories.
-
-## License
-This project is released under the MIT license. Please see the [LICENSE](LICENSE) file for more information.
+This repository is built using the [BiFormer](https://github.com/rayleizhu/BiFormer) , [DeepHypergraph](https://github.com/iMoonLab/DeepHypergraph),  [AdaPooling](https://github.com/alexandrosstergiou/adaPool), [SoftPooling](https://github.com/alexandrosstergiou/SoftPool), and [mmcv](https://github.com/open-mmlab/mmcv) repositories.
 
 ## Citation
-If you find this repository helpful, please consider citing:
 ```
-@Article{zhu2022biformer,
-  author  = {Lei Zhu and Xinjiang Wang and Zhanghan Ke and Wayne Zhang and Rynson Lau},
-  title   = {BiFormer: Vision Transformer with Bi-Level Routing Attention},
-  journal = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-  year    = {2023},
+@article{jing2025hypergraph,
+  title={Hypergraph biformer for semantic segmentation of high-resolution remote sensing images},
+  author={Jing, Weipeng and Zhang, Wenjun and Di, Donglin and Li, Chao and Emam, Mahmoud and Mian, Ajmal},
+  journal={IEEE Transactions on Geoscience and Remote Sensing},
+  year={2025},
+  publisher={IEEE}
 }
 ```
 
-## TODOs
-- [x] Add camera-ready paper link
-- [x] IN1k standard training code, log, and pretrained checkpoints
-- [ ] IN1k token-labeling code
-- [x] Semantic segmentation code
-- [ ] Object detection code
-- [x] Swin-Tiny-Layout (STL) models
-- [x] Refactor BRA and BiFormer code
-- [ ] Visualization demo 
-- [x] ~~More efficient implementation with triton~~. See [triton issue #1279](https://github.com/openai/triton/issues/1279)
-- [ ] More efficient implementation (fusing gather and attention) with CUDA
+## License
+This project is released under the MIT license. Please see the [LICENSE](LICENSE) file for more information.

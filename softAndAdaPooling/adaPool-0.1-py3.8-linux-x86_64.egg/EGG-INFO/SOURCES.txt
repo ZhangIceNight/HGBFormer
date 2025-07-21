@@ -1,9 +1,0 @@
-setup.py
-CUDA/adapool_cuda.cpp
-CUDA/adapool_cuda_kernel.cu
-adaPool/__init__.py
-adaPool/idea.py
-adaPool.egg-info/PKG-INFO
-adaPool.egg-info/SOURCES.txt
-adaPool.egg-info/dependency_links.txt
-adaPool.egg-info/top_level.txt

@@ -4,7 +4,7 @@ import torch.nn as nn
 from mmcv_custom import load_checkpoint
 from mmseg.models.builder import BACKBONES
 from mmseg.utils import get_root_logger
-from models_cls.biformer import BiFormer 
+from .biformer import BiFormer 
 from timm.models.layers import LayerNorm2d
 from .DPM import DPM
 from .FAMPatchMerging import FAMPatchMerging

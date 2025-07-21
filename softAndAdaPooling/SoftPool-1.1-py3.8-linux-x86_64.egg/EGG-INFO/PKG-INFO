@@ -1,7 +1,0 @@
-Metadata-Version: 2.1
-Name: SoftPool
-Version: 1.1
-Summary: CUDA-accelerated package for performing 1D/2D/3D SoftPool
-Author: Alexandros Stergiou
-Author-email: alexstergiou5@gmail.com
-License: MIT
