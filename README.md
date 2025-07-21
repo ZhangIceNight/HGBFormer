@@ -44,7 +44,7 @@ conda activate hgbformer
 
 #### Dataset Preparetion
 
-1. Download the [ISPRS](http://) Remote Sensing dataset and structure the data as follows:
+1. Download the [ISPRS]([http://](https://www.isprs.org/resources/datasets/benchmarks/UrbanSemLab/semantic-labeling.aspx)) Remote Sensing dataset and structure the data as follows:
 
 ```bash
 /path/to/potsdam/
